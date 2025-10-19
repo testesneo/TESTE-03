@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="pt-BR" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equipe NytrixMC</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        .minecraft-bg {
+            background: linear-gradient(135deg, #059669 0%, #06b6d4 50%, #10b981 100%);
+            position: relative;
+        }
+        
+        .minecraft-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .pixelated {
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+        
+        .team-card {
+            border: 3px solid #555;
+            transition: all 0.3s ease;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .team-card.diretor {
+            background: linear-gradient(145deg, #fbbf24, #f59e0b);
+            border: 3px solid #d97706;
+        }
+        
+        .team-card.moderador-plus {
+            background: linear-gradient(145deg, #ef4444, #dc2626);
+            border: 3px solid #b91c1c;
+        }
+        
+        .team-card.trial-moderador {
+            background: linear-gradient(145deg, #3b82f6, #2563eb);
+            border: 3px solid #1d4ed8;
+        }
+        
+        .team-card.helper {
+            background: linear-gradient(145deg, #10b981, #059669);
+            border: 3px solid #047857;
+        }
+        
+        .team-card.builder {
+            background: linear-gradient(145deg, #8b5cf6, #7c3aed);
+            border: 3px solid #6d28d9;
+        }
+        
+        .minecraft-button {
+            background: linear-gradient(145deg, #4ade80, #22c55e);
+            border: 2px solid #16a34a;
+            transition: all 0.2s ease;
+        }
+        
+        .minecraft-button:hover {
+            background: linear-gradient(145deg, #22c55e, #16a34a);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(34, 197, 94, 0.4);
+        }
+        
+        .grass-block {
+            background: linear-gradient(to bottom, #4ade80 0%, #4ade80 20%, #22c55e 20%, #22c55e 100%);
+            border: 2px solid #16a34a;
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full minecraft-bg font-sans">
+  <main class="relative z-10"><!-- Header -->
+   <header class="text-center py-16 px-4">
+    <div class="inline-block grass-block p-6 rounded-lg mb-6">
+     <div class="text-6xl mb-4">
+      ⛏️
+     </div>
+    </div>
+    <h1 class="text-5xl font-bold text-white mb-4 pixelated" style="font-family: 'Orbitron', monospace;">NytrixMC</h1>
+    <p class="text-xl text-cyan-100 max-w-2xl mx-auto">Nossa equipe é formada por diferentes cargos, e cada um tem sua importância dentro do servidor. Cada membro desempenha um papel fundamental para o crescimento da comunidade.</p>
+   </header><!-- Team Section -->
+   <section class="py-16 px-4">
+    <div class="max-w-6xl mx-auto">
+     <h2 class="text-4xl font-bold text-center text-white mb-12 pixelated" style="font-family: 'Orbitron', monospace;">Nossa Equipe</h2><!-- Diretores -->
+     <div class="mb-12">
+      <h3 class="text-2xl font-bold text-center text-yellow-300 mb-6 pixelated" style="font-family: 'Orbitron', monospace;">👑 Diretores</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+       <div class="team-card diretor rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center text-3xl pixelated">
+         👑
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@qowo</h4>
+        <p class="text-yellow-100 text-sm">Diretor</p>
+       </div>
+       <div class="team-card diretor rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center text-3xl pixelated">
+         👑
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@! p3sad310</h4>
+        <p class="text-yellow-100 text-sm">Diretor</p>
+       </div>
+      </div>
+     </div><!-- Moderador+ -->
+     <div class="mb-12">
+      <h3 class="text-2xl font-bold text-center text-red-300 mb-6 pixelated" style="font-family: 'Orbitron', monospace;">🛡️ Moderador+</h3>
+      <div class="grid grid-cols-1 gap-6 max-w-md mx-auto">
+       <div class="team-card moderador-plus rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-red-500 to-red-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🛡️
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@Jaooz 禁</h4>
+        <p class="text-red-100 text-sm">Moderador+</p>
+       </div>
+      </div>
+     </div><!-- Trial Moderador -->
+     <div class="mb-12">
+      <h3 class="text-2xl font-bold text-center text-blue-300 mb-6 pixelated" style="font-family: 'Orbitron', monospace;">🔨 Trial Moderador</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+       <div class="team-card trial-moderador rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🔨
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@BitzPrime</h4>
+        <p class="text-blue-100 text-sm">Trial Moderador</p>
+       </div>
+       <div class="team-card trial-moderador rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🔨
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@_MiguelEB</h4>
+        <p class="text-blue-100 text-sm">Trial Moderador</p>
+       </div>
+       <div class="team-card trial-moderador rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🔨
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@! yNeoo</h4>
+        <p class="text-blue-100 text-sm">Trial Moderador</p>
+       </div>
+       <div class="team-card trial-moderador rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🔨
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@Pepx_</h4>
+        <p class="text-blue-100 text-sm">Trial Moderador</p>
+       </div>
+       <div class="team-card trial-moderador rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🔨
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@bl4ckx</h4>
+        <p class="text-blue-100 text-sm">Trial Moderador</p>
+       </div>
+       <div class="team-card trial-moderador rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🔨
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@Desculpada</h4>
+        <p class="text-blue-100 text-sm">Trial Moderador</p>
+       </div>
+       <div class="team-card trial-moderador rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🔨
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@ReduxPJL</h4>
+        <p class="text-blue-100 text-sm">Trial Moderador</p>
+       </div>
+      </div>
+     </div><!-- Helper -->
+     <div class="mb-12">
+      <h3 class="text-2xl font-bold text-center text-green-300 mb-6 pixelated" style="font-family: 'Orbitron', monospace;">🤝 Helper</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+       <div class="team-card helper rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🤝
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@whiix</h4>
+        <p class="text-green-100 text-sm">Helper</p>
+       </div>
+       <div class="team-card helper rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🤝
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@Thurziin21</h4>
+        <p class="text-green-100 text-sm">Helper</p>
+       </div>
+       <div class="team-card helper rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🤝
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2 text-xs">@pneumoultramicroscopicosilicov..</h4>
+        <p class="text-green-100 text-sm">Helper</p>
+       </div>
+       <div class="team-card helper rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🤝
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@noxx</h4>
+        <p class="text-green-100 text-sm">Helper</p>
+       </div>
+       <div class="team-card helper rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🤝
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@Ax</h4>
+        <p class="text-green-100 text-sm">Helper</p>
+       </div>
+       <div class="team-card helper rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🤝
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@É o Luan né vd</h4>
+        <p class="text-green-100 text-sm">Helper</p>
+       </div>
+       <div class="team-card helper rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🤝
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@Vivo</h4>
+        <p class="text-green-100 text-sm">Helper</p>
+       </div>
+      </div>
+     </div><!-- Builder -->
+     <div class="mb-12">
+      <h3 class="text-2xl font-bold text-center text-purple-300 mb-6 pixelated" style="font-family: 'Orbitron', monospace;">🏗️ Builder</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+       <div class="team-card builder rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🏗️
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@_MiguelEB</h4>
+        <p class="text-purple-100 text-sm">Builder</p>
+       </div>
+       <div class="team-card builder rounded-lg p-6 text-center">
+        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg flex items-center justify-center text-3xl pixelated">
+         🏗️
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">@Jaooz 禁</h4>
+        <p class="text-purple-100 text-sm">Builder</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Join Section -->
+   <section class="py-16 px-4 text-center">
+    <div class="max-w-4xl mx-auto">
+     <h2 class="text-4xl font-bold text-white mb-8 pixelated" style="font-family: 'Orbitron', monospace;">Junte-se a Nós!</h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+      <div class="team-card helper rounded-lg p-8">
+       <div class="text-4xl mb-4">
+        🎮
+       </div>
+       <h3 class="text-2xl font-bold text-white mb-4">Conecte-se ao Servidor</h3>
+       <p class="text-cyan-100 text-xl font-mono bg-gray-800 p-3 rounded border-2 border-cyan-400">nytrixmc.com.br</p><button onclick="copyServerIP()" class="minecraft-button text-white font-bold py-3 px-6 rounded-lg mt-4 pixelated"> Copiar IP </button>
+      </div>
+      <div class="team-card helper rounded-lg p-8">
+       <div class="text-4xl mb-4">
+        💬
+       </div>
+       <h3 class="text-2xl font-bold text-white mb-4">Discord</h3>
+       <p class="text-gray-100 mb-4">Junte-se à nossa comunidade no Discord para ficar por dentro de todas as novidades!</p><a href="https://discord.gg/seuservidor" target="_blank" rel="noopener noreferrer" class="minecraft-button text-white font-bold py-3 px-6 rounded-lg inline-block pixelated"> Entrar no Discord </a>
+      </div>
+     </div>
+     <div class="text-center"><button onclick="showGuidesPage()" class="minecraft-button text-white font-bold py-4 px-8 rounded-lg text-xl pixelated"> 📚 Acessar Guias do Servidor </button>
+     </div>
+    </div>
+   </section>
+  </main><!-- Guides Page (Hidden by default) -->
+  <div id="guides-page" class="fixed inset-0 minecraft-bg z-50 hidden">
+   <div class="relative z-10 h-full flex flex-col"><!-- Header -->
+    <header class="text-center py-12 px-4">
+     <h1 class="text-4xl font-bold text-white mb-4 pixelated" style="font-family: 'Orbitron', monospace;">📚 Guias do NytrixMC</h1>
+     <p class="text-xl text-cyan-100 max-w-2xl mx-auto">Acesse nossos guias completos para ter a melhor experiência no servidor</p>
+    </header><!-- Guides Grid -->
+    <section class="flex-1 py-8 px-4">
+     <div class="max-w-4xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"><!-- Guia de Atendimento -->
+       <div class="team-card helper rounded-lg p-8 text-center">
+        <div class="text-6xl mb-6">
+         🎧
+        </div>
+        <h3 class="text-2xl font-bold text-white mb-4 pixelated">Guia de Atendimento</h3>
+        <p class="text-gray-100 mb-6">Como solicitar ajuda e ser atendido pela nossa equipe</p><button onclick="showGuide('atendimento')" class="minecraft-button text-white font-bold py-3 px-6 rounded-lg pixelated w-full"> 📖 Exibir Guia </button>
+       </div><!-- Guia de Punições -->
+       <div class="team-card moderador-plus rounded-lg p-8 text-center">
+        <div class="text-6xl mb-6">
+         ⚖️
+        </div>
+        <h3 class="text-2xl font-bold text-white mb-4 pixelated">Guia de Punições</h3>
+        <p class="text-gray-100 mb-6">Regras do servidor e sistema de punições</p><button onclick="showGuide('punicoes')" class="minecraft-button text-white font-bold py-3 px-6 rounded-lg pixelated w-full"> 📖 Exibir Guia </button>
+       </div><!-- Guia de Dúvidas -->
+       <div class="team-card trial-moderador rounded-lg p-8 text-center">
+        <div class="text-6xl mb-6">
+         ❓
+        </div>
+        <h3 class="text-2xl font-bold text-white mb-4 pixelated">Guia de Dúvidas</h3>
+        <p class="text-gray-100 mb-6">Perguntas frequentes e respostas úteis</p><button onclick="showGuide('duvidas')" class="minecraft-button text-white font-bold py-3 px-6 rounded-lg pixelated w-full"> 📖 Exibir Guia </button>
+       </div>
+      </div><!-- Back Button -->
+      <div class="text-center"><button onclick="hideGuidesPage()" class="minecraft-button text-white font-bold py-3 px-8 rounded-lg pixelated"> ← Voltar ao Início </button>
+      </div>
+     </div>
+    </section>
+   </div>
+  </div><!-- Guide Content Modal -->
+  <div id="guide-modal" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center p-4" style="z-index: 9999;">
+   <div class="team-card helper rounded-lg p-8 max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+    <div class="flex justify-between items-center mb-6">
+     <h3 id="guide-title" class="text-2xl font-bold text-white pixelated"></h3><button onclick="hideGuide()" class="text-white hover:text-red-300 text-3xl font-bold">✕</button>
+    </div>
+    <div id="guide-content" class="text-gray-100 space-y-2 text-sm leading-relaxed"></div>
+   </div>
+  </div>
+  <script>
+        // Guide content data
+        const guideContent = {
+            atendimento: {
+                title: "🎧 Guia de Atendimento",
+                content: [
+                    "<strong>I. INTRODUÇÃO (Abertura do Atendimento)</strong>",
+                    "<em>Regra: Seja sempre formal, cordial e empático. Confirme a disponibilidade do remetente e utilize o nome/menção dele.</em>",
+                    "",
+                    "<strong>Abertura/Saudação:</strong>",
+                    "• Olá @menção! 👋, tudo bem com você? Em que posso ajudar hoje?",
+                    "",
+                    "<strong>Opções Formais:</strong>",
+                    "• Bom dia/Boa tarde, @menção! Agradeço o contato. Estou à disposição para auxiliá-lo.",
+                    "",
+                    "<strong>Demonstrando Empatia:</strong>",
+                    "• Olá @menção, sinto muito que esteja enfrentando essa situação. Vamos resolver isso. Em que posso ajudar?",
+                    "",
+                    "<strong>II. MEIO (Condução e Investigação)</strong>",
+                    "<em>Regra: Mantenha um tom investigativo e colaborativo. Incentive a comunicação livre e garanta que todas as informações sejam coletadas.</em>",
+                    "",
+                    "<strong>Coleta de Informações:</strong>",
+                    "• Para que eu possa ser mais assertivo, você poderia, por gentileza, detalhar o ocorrido?",
+                    "",
+                    "<strong>Confirmando Compreensão:</strong>",
+                    "• Certo, para ter certeza que entendi: o problema está ocorrendo ao (descreva o problema). É isso?",
+                    "",
+                    "<strong>Pedindo Screenshots/Contexto:</strong>",
+                    "• Poderia nos enviar uma captura de tela (screenshot) ou um link para que eu visualize exatamente o que está ocorrendo?",
+                    "",
+                    "<strong>III. EM CASO DE DÚVIDAS DA EQUIPE (Escalonamento Interno)</strong>",
+                    "<em>Regra: Seja transparente sobre a necessidade de consulta sem expor a equipe ou o processo interno.</em>",
+                    "",
+                    "<strong>Solicitando Tempo (Regra de Ouro):</strong>",
+                    "• ❌ NÃO DIGA: 'Vou falar com o meu superior/gerente.'",
+                    "• ✅ DIGA: 'Peço apenas um momento para consultar a área responsável e trazer a informação mais precisa.'",
+                    "",
+                    "<strong>Estimativa de Tempo:</strong>",
+                    "• Peço que aguarde, por gentileza, aproximadamente 5 minutos, enquanto confirmo o procedimento.",
+                    "• Estimamos que
