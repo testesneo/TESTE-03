@@ -1,377 +1,428 @@
 <!doctype html>
-<html lang="pt-BR" class="h-full">
+<html lang="pt-BR">
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Equipe NytrixMC</title>
+  <title>Sorteador Unidos Pela Fé</title>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
         body {
             box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-        
-        .minecraft-bg {
-            background: linear-gradient(135deg, #059669 0%, #06b6d4 50%, #10b981 100%);
-            position: relative;
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
         
-        .minecraft-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 2px, transparent 2px),
-                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 20px 20px;
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
-        .pixelated {
-            image-rendering: pixelated;
-            image-rendering: -moz-crisp-edges;
-            image-rendering: crisp-edges;
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 6px;
         }
         
-        .team-card {
-            border: 3px solid #555;
+        @media (min-width: 640px) {
+            .number-grid {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+                gap: 8px;
+            }
+        }
+        
+        .number-btn {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            border: 2px solid transparent;
             transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 12px;
+            min-height: 44px;
+            cursor: pointer;
         }
         
-        .team-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        @media (min-width: 640px) {
+            .number-btn {
+                border-radius: 12px;
+                font-size: 14px;
+            }
         }
         
-        .team-card.diretor {
-            background: linear-gradient(145deg, #fbbf24, #f59e0b);
-            border: 3px solid #d97706;
-        }
-        
-        .team-card.moderador-plus {
-            background: linear-gradient(145deg, #ef4444, #dc2626);
-            border: 3px solid #b91c1c;
-        }
-        
-        .team-card.trial-moderador {
-            background: linear-gradient(145deg, #3b82f6, #2563eb);
-            border: 3px solid #1d4ed8;
-        }
-        
-        .team-card.helper {
-            background: linear-gradient(145deg, #10b981, #059669);
-            border: 3px solid #047857;
-        }
-        
-        .team-card.builder {
-            background: linear-gradient(145deg, #8b5cf6, #7c3aed);
-            border: 3px solid #6d28d9;
-        }
-        
-        .minecraft-button {
-            background: linear-gradient(145deg, #4ade80, #22c55e);
-            border: 2px solid #16a34a;
-            transition: all 0.2s ease;
-        }
-        
-        .minecraft-button:hover {
-            background: linear-gradient(145deg, #22c55e, #16a34a);
+        .number-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(34, 197, 94, 0.4);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
         
-        .grass-block {
-            background: linear-gradient(to bottom, #4ade80 0%, #4ade80 20%, #22c55e 20%, #22c55e 100%);
-            border: 2px solid #16a34a;
+        .number-btn.available {
+            background: rgba(255, 255, 255, 0.9);
+            color: #4f46e5;
+            border-color: rgba(79, 70, 229, 0.3);
+        }
+        
+        .number-btn.taken {
+            background: rgba(239, 68, 68, 0.8);
+            color: white;
+        }
+        
+        .number-btn.winner {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            animation: pulse-winner 2s infinite;
+        }
+        
+        .number-btn.my-number {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: 3px solid #fbbf24;
+        }
+        
+        @keyframes pulse-winner {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f59e0b;
+            animation: confetti-fall 3s linear infinite;
+        }
+        
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            max-width: 400px;
+            padding: 16px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .tab-button {
+            padding: 8px 12px;
+            border-radius: 8px 8px 0 0;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 12px;
+            flex: 1;
+            min-width: 0;
+            text-align: center;
+        }
+        
+        @media (min-width: 640px) {
+            .tab-button {
+                padding: 12px 24px;
+                font-size: 14px;
+                flex: none;
+            }
+        }
+        
+        .tab-button.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-bottom: 3px solid #fbbf24;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .admin-nav-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .admin-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+
+        .admin-nav-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-bottom: 2px solid #fbbf24;
+        }
+
+        .admin-section {
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+        
+        .winner-notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2000;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: bounceIn 0.6s ease-out;
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+            70% { transform: translate(-50%, -50%) scale(0.9); }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
     </style>
   <style>@view-transition { navigation: auto; }</style>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
-  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
  </head>
- <body class="h-full minecraft-bg font-sans">
-  <main class="relative z-10"><!-- Header -->
-   <header class="text-center py-16 px-4">
-    <div class="inline-block grass-block p-6 rounded-lg mb-6">
-     <div class="text-6xl mb-4">
-      ⛏️
-     </div>
+ <body class="gradient-bg min-h-full"><!-- Maintenance Notice -->
+  <div id="maintenance-notice" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+   <div class="glass-effect rounded-2xl p-8 max-w-md mx-4 w-full text-center">
+    <h2 class="text-3xl font-bold text-white mb-4">🔧 Sistema em Manutenção</h2>
+    <p id="maintenance-message-display" class="text-white text-lg mb-6">Sistema em manutenção. Voltaremos em breve!</p>
+    <div class="text-white text-sm opacity-70">
+     <p>Apenas administradores podem acessar o sistema durante a manutenção.</p>
     </div>
-    <h1 class="text-5xl font-bold text-white mb-4 pixelated" style="font-family: 'Orbitron', monospace;">NytrixMC</h1>
-    <p class="text-xl text-cyan-100 max-w-2xl mx-auto">Nossa equipe é formada por diferentes cargos, e cada um tem sua importância dentro do servidor. Cada membro desempenha um papel fundamental para o crescimento da comunidade.</p>
-   </header><!-- Team Section -->
-   <section class="py-16 px-4">
-    <div class="max-w-6xl mx-auto">
-     <h2 class="text-4xl font-bold text-center text-white mb-12 pixelated" style="font-family: 'Orbitron', monospace;">Nossa Equipe</h2><!-- Diretores -->
-     <div class="mb-12">
-      <h3 class="text-2xl font-bold text-center text-yellow-300 mb-6 pixelated" style="font-family: 'Orbitron', monospace;">👑 Diretores</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-       <div class="team-card diretor rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center text-3xl pixelated">
-         👑
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@qowo</h4>
-        <p class="text-yellow-100 text-sm">Diretor</p>
-       </div>
-       <div class="team-card diretor rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center text-3xl pixelated">
-         👑
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@! p3sad310</h4>
-        <p class="text-yellow-100 text-sm">Diretor</p>
-       </div>
-      </div>
-     </div><!-- Moderador+ -->
-     <div class="mb-12">
-      <h3 class="text-2xl font-bold text-center text-red-300 mb-6 pixelated" style="font-family: 'Orbitron', monospace;">🛡️ Moderador+</h3>
-      <div class="grid grid-cols-1 gap-6 max-w-md mx-auto">
-       <div class="team-card moderador-plus rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-red-500 to-red-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🛡️
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@Jaooz 禁</h4>
-        <p class="text-red-100 text-sm">Moderador+</p>
-       </div>
-      </div>
-     </div><!-- Trial Moderador -->
-     <div class="mb-12">
-      <h3 class="text-2xl font-bold text-center text-blue-300 mb-6 pixelated" style="font-family: 'Orbitron', monospace;">🔨 Trial Moderador</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-       <div class="team-card trial-moderador rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🔨
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@BitzPrime</h4>
-        <p class="text-blue-100 text-sm">Trial Moderador</p>
-       </div>
-       <div class="team-card trial-moderador rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🔨
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@_MiguelEB</h4>
-        <p class="text-blue-100 text-sm">Trial Moderador</p>
-       </div>
-       <div class="team-card trial-moderador rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🔨
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@! yNeoo</h4>
-        <p class="text-blue-100 text-sm">Trial Moderador</p>
-       </div>
-       <div class="team-card trial-moderador rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🔨
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@Pepx_</h4>
-        <p class="text-blue-100 text-sm">Trial Moderador</p>
-       </div>
-       <div class="team-card trial-moderador rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🔨
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@bl4ckx</h4>
-        <p class="text-blue-100 text-sm">Trial Moderador</p>
-       </div>
-       <div class="team-card trial-moderador rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🔨
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@Desculpada</h4>
-        <p class="text-blue-100 text-sm">Trial Moderador</p>
-       </div>
-       <div class="team-card trial-moderador rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🔨
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@ReduxPJL</h4>
-        <p class="text-blue-100 text-sm">Trial Moderador</p>
-       </div>
-      </div>
-     </div><!-- Helper -->
-     <div class="mb-12">
-      <h3 class="text-2xl font-bold text-center text-green-300 mb-6 pixelated" style="font-family: 'Orbitron', monospace;">🤝 Helper</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-       <div class="team-card helper rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🤝
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@whiix</h4>
-        <p class="text-green-100 text-sm">Helper</p>
-       </div>
-       <div class="team-card helper rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🤝
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@Thurziin21</h4>
-        <p class="text-green-100 text-sm">Helper</p>
-       </div>
-       <div class="team-card helper rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🤝
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2 text-xs">@pneumoultramicroscopicosilicov..</h4>
-        <p class="text-green-100 text-sm">Helper</p>
-       </div>
-       <div class="team-card helper rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🤝
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@noxx</h4>
-        <p class="text-green-100 text-sm">Helper</p>
-       </div>
-       <div class="team-card helper rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🤝
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@Ax</h4>
-        <p class="text-green-100 text-sm">Helper</p>
-       </div>
-       <div class="team-card helper rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🤝
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@É o Luan né vd</h4>
-        <p class="text-green-100 text-sm">Helper</p>
-       </div>
-       <div class="team-card helper rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🤝
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@Vivo</h4>
-        <p class="text-green-100 text-sm">Helper</p>
-       </div>
-      </div>
-     </div><!-- Builder -->
-     <div class="mb-12">
-      <h3 class="text-2xl font-bold text-center text-purple-300 mb-6 pixelated" style="font-family: 'Orbitron', monospace;">🏗️ Builder</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-       <div class="team-card builder rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🏗️
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@_MiguelEB</h4>
-        <p class="text-purple-100 text-sm">Builder</p>
-       </div>
-       <div class="team-card builder rounded-lg p-6 text-center">
-        <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg flex items-center justify-center text-3xl pixelated">
-         🏗️
-        </div>
-        <h4 class="text-lg font-bold text-white mb-2">@Jaooz 禁</h4>
-        <p class="text-purple-100 text-sm">Builder</p>
-       </div>
-      </div>
-     </div>
-    </div>
-   </section><!-- Join Section -->
-   <section class="py-16 px-4 text-center">
-    <div class="max-w-4xl mx-auto">
-     <h2 class="text-4xl font-bold text-white mb-8 pixelated" style="font-family: 'Orbitron', monospace;">Junte-se a Nós!</h2>
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-      <div class="team-card helper rounded-lg p-8">
-       <div class="text-4xl mb-4">
-        🎮
-       </div>
-       <h3 class="text-2xl font-bold text-white mb-4">Conecte-se ao Servidor</h3>
-       <p class="text-cyan-100 text-xl font-mono bg-gray-800 p-3 rounded border-2 border-cyan-400">nytrixmc.com.br</p><button onclick="copyServerIP()" class="minecraft-button text-white font-bold py-3 px-6 rounded-lg mt-4 pixelated"> Copiar IP </button>
-      </div>
-      <div class="team-card helper rounded-lg p-8">
-       <div class="text-4xl mb-4">
-        💬
-       </div>
-       <h3 class="text-2xl font-bold text-white mb-4">Discord</h3>
-       <p class="text-gray-100 mb-4">Junte-se à nossa comunidade no Discord para ficar por dentro de todas as novidades!</p><a href="https://discord.gg/seuservidor" target="_blank" rel="noopener noreferrer" class="minecraft-button text-white font-bold py-3 px-6 rounded-lg inline-block pixelated"> Entrar no Discord </a>
-      </div>
-     </div>
-     <div class="text-center"><button onclick="showGuidesPage()" class="minecraft-button text-white font-bold py-4 px-8 rounded-lg text-xl pixelated"> 📚 Acessar Guias do Servidor </button>
-     </div>
-    </div>
-   </section>
-  </main><!-- Guides Page (Hidden by default) -->
-  <div id="guides-page" class="fixed inset-0 minecraft-bg z-50 hidden">
-   <div class="relative z-10 h-full flex flex-col"><!-- Header -->
-    <header class="text-center py-12 px-4">
-     <h1 class="text-4xl font-bold text-white mb-4 pixelated" style="font-family: 'Orbitron', monospace;">📚 Guias do NytrixMC</h1>
-     <p class="text-xl text-cyan-100 max-w-2xl mx-auto">Acesse nossos guias completos para ter a melhor experiência no servidor</p>
-    </header><!-- Guides Grid -->
-    <section class="flex-1 py-8 px-4">
-     <div class="max-w-4xl mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"><!-- Guia de Atendimento -->
-       <div class="team-card helper rounded-lg p-8 text-center">
-        <div class="text-6xl mb-6">
-         🎧
-        </div>
-        <h3 class="text-2xl font-bold text-white mb-4 pixelated">Guia de Atendimento</h3>
-        <p class="text-gray-100 mb-6">Como solicitar ajuda e ser atendido pela nossa equipe</p><button onclick="showGuide('atendimento')" class="minecraft-button text-white font-bold py-3 px-6 rounded-lg pixelated w-full"> 📖 Exibir Guia </button>
-       </div><!-- Guia de Punições -->
-       <div class="team-card moderador-plus rounded-lg p-8 text-center">
-        <div class="text-6xl mb-6">
-         ⚖️
-        </div>
-        <h3 class="text-2xl font-bold text-white mb-4 pixelated">Guia de Punições</h3>
-        <p class="text-gray-100 mb-6">Regras do servidor e sistema de punições</p><button onclick="showGuide('punicoes')" class="minecraft-button text-white font-bold py-3 px-6 rounded-lg pixelated w-full"> 📖 Exibir Guia </button>
-       </div><!-- Guia de Dúvidas -->
-       <div class="team-card trial-moderador rounded-lg p-8 text-center">
-        <div class="text-6xl mb-6">
-         ❓
-        </div>
-        <h3 class="text-2xl font-bold text-white mb-4 pixelated">Guia de Dúvidas</h3>
-        <p class="text-gray-100 mb-6">Perguntas frequentes e respostas úteis</p><button onclick="showGuide('duvidas')" class="minecraft-button text-white font-bold py-3 px-6 rounded-lg pixelated w-full"> 📖 Exibir Guia </button>
-       </div>
-      </div><!-- Back Button -->
-      <div class="text-center"><button onclick="hideGuidesPage()" class="minecraft-button text-white font-bold py-3 px-8 rounded-lg pixelated"> ← Voltar ao Início </button>
-      </div>
-     </div>
-    </section>
-   </div>
-  </div><!-- Guide Content Modal -->
-  <div id="guide-modal" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center p-4" style="z-index: 9999;">
-   <div class="team-card helper rounded-lg p-8 max-w-4xl w-full max-h-[80vh] overflow-y-auto">
-    <div class="flex justify-between items-center mb-6">
-     <h3 id="guide-title" class="text-2xl font-bold text-white pixelated"></h3><button onclick="hideGuide()" class="text-white hover:text-red-300 text-3xl font-bold">✕</button>
-    </div>
-    <div id="guide-content" class="text-gray-100 space-y-2 text-sm leading-relaxed"></div>
    </div>
   </div>
-  <script>
-        // Guide content data
-        const guideContent = {
-            atendimento: {
-                title: "🎧 Guia de Atendimento",
-                content: [
-                    "<strong>I. INTRODUÇÃO (Abertura do Atendimento)</strong>",
-                    "<em>Regra: Seja sempre formal, cordial e empático. Confirme a disponibilidade do remetente e utilize o nome/menção dele.</em>",
-                    "",
-                    "<strong>Abertura/Saudação:</strong>",
-                    "• Olá @menção! 👋, tudo bem com você? Em que posso ajudar hoje?",
-                    "",
-                    "<strong>Opções Formais:</strong>",
-                    "• Bom dia/Boa tarde, @menção! Agradeço o contato. Estou à disposição para auxiliá-lo.",
-                    "",
-                    "<strong>Demonstrando Empatia:</strong>",
-                    "• Olá @menção, sinto muito que esteja enfrentando essa situação. Vamos resolver isso. Em que posso ajudar?",
-                    "",
-                    "<strong>II. MEIO (Condução e Investigação)</strong>",
-                    "<em>Regra: Mantenha um tom investigativo e colaborativo. Incentive a comunicação livre e garanta que todas as informações sejam coletadas.</em>",
-                    "",
-                    "<strong>Coleta de Informações:</strong>",
-                    "• Para que eu possa ser mais assertivo, você poderia, por gentileza, detalhar o ocorrido?",
-                    "",
-                    "<strong>Confirmando Compreensão:</strong>",
-                    "• Certo, para ter certeza que entendi: o problema está ocorrendo ao (descreva o problema). É isso?",
-                    "",
-                    "<strong>Pedindo Screenshots/Contexto:</strong>",
-                    "• Poderia nos enviar uma captura de tela (screenshot) ou um link para que eu visualize exatamente o que está ocorrendo?",
-                    "",
-                    "<strong>III. EM CASO DE DÚVIDAS DA EQUIPE (Escalonamento Interno)</strong>",
-                    "<em>Regra: Seja transparente sobre a necessidade de consulta sem expor a equipe ou o processo interno.</em>",
-                    "",
-                    "<strong>Solicitando Tempo (Regra de Ouro):</strong>",
-                    "• ❌ NÃO DIGA: 'Vou falar com o meu superior/gerente.'",
-                    "• ✅ DIGA: 'Peço apenas um momento para consultar a área responsável e trazer a informação mais precisa.'",
-                    "",
-                    "<strong>Estimativa de Tempo:</strong>",
-                    "• Peço que aguarde, por gentileza, aproximadamente 5 minutos, enquanto confirmo o procedimento.",
-                    "• Estimamos que
+  <div class="container mx-auto px-4 py-8 max-w-6xl"><!-- Header -->
+   <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">
+    <div class="floating-animation flex-1">
+     <h1 id="main-title" class="text-2xl md:text-4xl font-bold text-white mb-2">🎲 Sorteador</h1>
+     <p id="main-description" class="text-lg md:text-xl text-white opacity-90">Sorteador do Unidos Pela Fé, grupo católico</p>
+    </div>
+    <div class="flex gap-2 w-full lg:w-auto"><button id="admin-login-toggle" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-3 py-2 rounded-lg transition-all backdrop-blur-sm text-sm flex-1 lg:flex-none"> 🔐 Admin </button>
+    </div>
+   </div><!-- Navigation Tabs -->
+   <div class="glass-effect rounded-t-2xl mb-0">
+    <div class="flex flex-wrap gap-1 p-2 sm:gap-2 sm:p-4"><button class="tab-button active" data-tab="sorteio">🎯 Sorteio</button> <button class="tab-button" data-tab="avisos">📢 Avisos</button> <button class="tab-button" data-tab="historico">📊 Histórico</button> <button class="tab-button" data-tab="admin" id="admin-tab" style="display: none;">👑 Admin</button>
+    </div>
+   </div><!-- Tab Contents -->
+   <div class="glass-effect rounded-b-2xl rounded-tr-2xl p-6"><!-- Sorteio Tab -->
+    <div id="sorteio-tab" class="tab-content active"><!-- User Status -->
+     <div id="user-status" class="bg-blue-500 bg-opacity-20 rounded-xl p-4 mb-6 hidden">
+      <h3 class="text-white font-bold mb-2">📱 Seu Status</h3>
+      <div id="user-info" class="text-white"></div>
+     </div><!-- Participation Form -->
+     <div id="participation-form" class="mb-8">
+      <h2 class="text-2xl font-bold text-white mb-4">✨ Participar do Sorteio</h2>
+      <form id="participant-form" class="space-y-4">
+       <div class="space-y-4">
+        <div><label for="participant-name" class="block text-white mb-2 text-sm font-medium">Seu Nome Completo:</label> <input type="text" id="participant-name" required class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 text-base" placeholder="Digite seu nome completo">
+        </div>
+        <div><label for="participant-city" class="block text-white mb-2 text-sm font-medium">Sua Cidade:</label> <input type="text" id="participant-city" required class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 text-base" placeholder="Digite sua cidade">
+        </div>
+        <div><label for="participant-whatsapp" class="block text-white mb-2 text-sm font-medium">WhatsApp ou Nome no WhatsApp:</label> <input type="text" id="participant-whatsapp" required class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 text-base" placeholder="Ex: 11999887766 ou @seunome">
+        </div>
+        <div><label for="chosen-number-input" class="block text-white mb-2 text-sm font-medium">Escolha seu número (1-<span id="max-number-label">100</span>):</label>
+         <div class="flex gap-2"><input type="number" id="chosen-number-input" min="1" required class="flex-1 px-4 py-3 rounded-lg bg-white bg-opacity-20 text-white placeholder-white placeholder-opacity-70 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 text-base" placeholder="Digite um número"> <button type="button" id="random-number-btn" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-3 rounded-lg font-semibold transition-all whitespace-nowrap"> 🎲 Aleatório </button>
+         </div>
+        </div>
+       </div><button type="submit" id="participate-btn" class="w-full bg-blue-500 hover:bg-blue-600 text-white px-6 py-4 rounded-lg font-semibold transition-all text-lg mt-6"> 🎯 Participar do Sorteio </button>
+      </form>
+     </div><!-- Counters -->
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-blue-500 bg-opacity-20 rounded-xl p-4 text-center">
+       <div class="text-2xl font-bold text-white" id="counter-available">
+        100
+       </div>
+       <div class="text-white text-sm opacity-80">
+        Disponíveis
+       </div>
+      </div>
+      <div class="bg-red-500 bg-opacity-20 rounded-xl p-4 text-center">
+       <div class="text-2xl font-bold text-white" id="counter-taken">
+        0
+       </div>
+       <div class="text-white text-sm opacity-80">
+        Ocupados
+       </div>
+      </div>
+      <div class="bg-green-500 bg-opacity-20 rounded-xl p-4 text-center">
+       <div class="text-2xl font-bold text-white" id="counter-winners">
+        0
+       </div>
+       <div class="text-white text-sm opacity-80">
+        Vencedores
+       </div>
+      </div>
+      <div class="bg-purple-500 bg-opacity-20 rounded-xl p-4 text-center">
+       <div class="text-2xl font-bold text-white" id="counter-progress">
+        0%
+       </div>
+       <div class="text-white text-sm opacity-80">
+        Preenchido
+       </div>
+      </div>
+     </div><!-- Progress Bar -->
+     <div class="bg-white bg-opacity-10 rounded-xl p-4 mb-6">
+      <div class="flex justify-between items-center mb-2"><span class="text-white font-semibold">Progresso do Sorteio</span> <span class="text-white text-sm" id="progress-text">0 / 100</span>
+      </div>
+      <div class="w-full bg-white bg-opacity-20 rounded-full h-3">
+       <div id="progress-bar" class="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+      </div>
+     </div><!-- Draw Announcements -->
+     <div id="draw-announcements-section" class="mb-6"><!-- Draw announcements will appear here -->
+     </div><!-- Numbers Grid -->
+     <div class="mb-8">
+      <div class="flex justify-between items-center mb-4">
+       <h2 class="text-2xl font-bold text-white">🎲 Grade de Números (<span id="grid-size">100</span> números)</h2>
+       <div class="text-white text-sm"><span class="inline-block w-4 h-4 bg-white bg-opacity-90 rounded mr-2"></span>Disponível <span class="inline-block w-4 h-4 bg-red-500 rounded mr-2 ml-4"></span>Ocupado <span class="inline-block w-4 h-4 bg-green-500 rounded mr-2 ml-4"></span>Vencedor
+       </div>
+      </div>
+      <div id="numbers-grid" class="number-grid"><!-- Numbers will be generated here -->
+      </div>
+     </div><!-- Participants List -->
+     <div>
+      <h2 class="text-2xl font-bold text-white mb-4">👥 Participantes (<span id="participant-count">0</span>)</h2>
+      <div id="participants-list" class="space-y-2">
+       <p class="text-white opacity-70">Nenhum participante ainda...</p>
+      </div>
+     </div>
+    </div><!-- Avisos Tab -->
+    <div id="avisos-tab" class="tab-content">
+     <h2 class="text-2xl font-bold text-white mb-6">📢 Avisos e Informações</h2>
+     <div class="space-y-6"><!-- Acessibilidade -->
+      <div class="bg-purple-500 bg-opacity-20 rounded-xl p-6">
+       <h3 class="text-xl font-bold text-white mb-4">♿ Acessibilidade</h3>
+       <div class="space-y-4"><!-- Font Size Control -->
+        <div class="bg-white bg-opacity-10 rounded-lg p-4">
+         <h4 class="text-white font-semibold mb-3">🔤 Tamanho da Fonte</h4>
+         <div class="flex items-center gap-4"><label for="public-font-size-slider" class="text-white text-sm">Tamanho:</label> <input type="range" id="public-font-size-slider" min="12" max="24" value="16" class="flex-1"> <span id="public-font-size-value" class="text-white font-bold">16px</span>
+         </div>
+         <p class="text-white text-xs opacity-80 mt-2">Ajuste o tamanho da fonte para melhor legibilidade</p>
+        </div><!-- High Contrast -->
+        <div class="bg-white bg-opacity-10 rounded-lg p-4">
+         <h4 class="text-white font-semibold mb-3">🎨 Alto Contraste</h4>
+         <div class="flex items-center justify-between">
+          <div>
+           <p class="text-white text-sm">Ativar modo de alto contraste</p>
+           <p class="text-white text-xs opacity-80">Melhora a visibilidade para pessoas com baixa visão</p>
+          </div><button id="public-toggle-contrast-btn" class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-2 rounded-lg font-semibold transition-all text-sm"> <span id="public-contrast-status">Ativar</span> </button>
+         </div>
+        </div><!-- Keyboard Navigation -->
+        <div class="bg-white bg-opacity-10 rounded-lg p-4">
+         <h4 class="text-white font-semibold mb-3">⌨️ Navegação por Teclado</h4>
+         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-white text-xs">
+          <p><strong>Tab:</strong> Navegar entre elementos</p>
+          <p><strong>Enter/Espaço:</strong> Ativar botões</p>
+          <p><strong>Setas:</strong> Navegar em listas</p>
+          <p><strong>Esc:</strong> Fechar modais</p>
+         </div>
+        </div>
+       </div>
+      </div><!-- Sistema Status -->
+      <div class="bg-green-500 bg-opacity-20 rounded-xl p-6">
+       <h3 class="text-xl font-bold text-white mb-4">✅ Status do Sistema</h3>
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-white bg-opacity-10 rounded-lg p-4">
+         <div class="flex items-center mb-2"><span class="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"></span> <span class="text-white font-semibold">Servidor Online</span>
+         </div>
+         <p class="text-white text-sm opacity-80">Sistema funcionando normalmente</p>
+        </div>
+        <div class="bg-white bg-opacity-10 rounded-lg p-4">
+         <div class="flex items-center mb-2"><span class="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"></span> <span class="text-white font-semibold">Banco de Dados</span>
+         </div>
+         <p class="text-white text-sm opacity-80">Dados seguros e sincronizados</p>
+        </div>
+       </div>
+      </div><!-- Regras -->
+      <div class="bg-yellow-500 bg-opacity-20 rounded-xl p-6">
+       <h3 class="text-xl font-bold text-white mb-4">📋 Regras do Sorteio</h3>
+       <ul class="space-y-2 text-white">
+        <li class="flex items-start gap-2"><span class="text-yellow-400">•</span> <span>Cada pessoa pode escolher apenas UM número</span></li>
+        <li class="flex items-start gap-2"><span class="text-yellow-400">•</span> <span>Números de 1 a <span id="rules-max-number">100</span> disponíveis</span></li>
+        <li class="flex items-start gap-2"><span class="text-yellow-400">•</span> <span>WhatsApp obrigatório para contato</span></li>
+        <li class="flex items-start gap-2"><span class="text-yellow-400">•</span> <span>Sorteio realizado de forma aleatória e transparente</span></li>
+       </ul>
+      </div>
+     </div>
+    </div><!-- Histórico Tab -->
+    <div id="historico-tab" class="tab-content">
+     <h2 class="text-2xl font-bold text-white mb-6">📊 Histórico de Sorteios</h2>
+     <div id="history-content" class="space-y-6"><!-- Sorteio Atual -->
+      <div class="bg-blue-500 bg-opacity-20 rounded-xl p-6">
+       <h3 class="text-xl font-bold text-white mb-4">🎯 Sorteio Atual</h3>
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-white bg-opacity-10 rounded-lg p-4 text-center">
+         <div class="text-3xl font-bold text-white" id="current-participants">
+          0
+         </div>
+         <div class="text-white text-sm opacity-80">
+          Participantes
+         </div>
+        </div>
+        <div class="bg-white bg-opacity-10 rounded-lg p-4 text-center">
+         <div class="text-3xl font-bold text-white" id="current-available">
+          100
+         </div>
+         <div class="text-white text-sm opacity-80">
+          Números Disponíveis
+         </div>
+        </div>
+        <div class="bg-white bg-opacity-10 rounded-lg p-4 text-center">
+         <div class="text-3xl font-bold text-white" id="current-winner">
+          -
+         </div>
+         <div class="text-white text-sm opacity-80">
+          Vencedores
+         </div>
+        </div>
+       </div>
+      </div><!-- Últimos Vencedores -->
+      <div class="bg-green-500 bg-opacity-20 rounded-xl p-6">
+       <h3 class="text-xl font-bold text-white mb-4">🏆 Últimos Vencedores</h3>
+       <div id="winners-history" class="space-y-3">
+        <p class="text-white opacity-70">Nenhum vencedor ainda...</p>
+       </div>
+      </div>
+     </div>
+    </div><!-- Admin Tab -->
+    <div id="admin-tab-content" class="tab-content">
+     <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-bold text-white">👑 Painel Administrativo</h2><button id="logout-admin" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-all"> Sair </button>
+     </div><!-- Admin Navigation -->
+     <div class="flex flex-wrap gap-2 mb-6"><button class="admin-nav-btn active" data-sectio
